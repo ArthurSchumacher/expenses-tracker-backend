@@ -1,25 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { AuthPayloadDto } from './dto/auth.dto';
 import { JwtService } from '@nestjs/jwt';
-
-const fakeUsers = [
-  {
-    id: 1,
-    username: 'Arthur',
-    password: 'password',
-  },
-];
+import { PrismaService } from 'src/prisma.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+    private prisma: PrismaService,
+  ) {}
 
-  validateUser(authPayloadDto: AuthPayloadDto) {
+  async validateUser(authPayloadDto: AuthPayloadDto) {
     const { username, password } = authPayloadDto;
-    const findUser = fakeUsers.find((user) => user.username === username);
+    const findUser = await this.prisma.user.findFirst({
+      where: {
+        username,
+      },
+    });
 
     if (!findUser) return null;
-    if (password === findUser.password) {
+    if (await bcrypt.compare(password, findUser.password)) {
       const user = {
         id: findUser.id,
         username: findUser.username,
