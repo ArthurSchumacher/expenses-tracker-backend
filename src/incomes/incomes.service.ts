@@ -11,7 +11,7 @@ export class IncomesService {
     try {
       const { title, amount, description } = createIncomeDto;
 
-      const income = await this.prisma.income.create({
+      const income = await this.prisma.incomes.create({
         data: {
           title,
           amount,
@@ -31,7 +31,7 @@ export class IncomesService {
 
   findAll(user: UserDto) {
     try {
-      return this.prisma.income.findMany({
+      return this.prisma.incomes.findMany({
         where: {
           userId: user.id,
         },
@@ -42,6 +42,6 @@ export class IncomesService {
   }
 
   remove(id: number) {
-    return this.prisma.income.delete({ where: { id } });
+    return this.prisma.incomes.delete({ where: { id } });
   }
 }

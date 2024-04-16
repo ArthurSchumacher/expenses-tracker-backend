@@ -21,11 +21,11 @@ model User {
   profile_picture String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  expenses        Expense[]
-  incomes         Income[]
+  expenses        Expenses[]
+  incomes         Incomes[]
 }
 
-model Expense {
+model Expenses {
   id              Int     @default(autoincrement()) @id
   title           String
   amount          Float
@@ -37,7 +37,7 @@ model Expense {
   userId  Int?
 }
 
-model Income {
+model Incomes {
   id              Int     @default(autoincrement()) @id
   title           String
   amount          Float
