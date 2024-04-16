@@ -12,10 +12,10 @@ export class AuthService {
   ) {}
 
   async validateUser(authPayloadDto: AuthPayloadDto) {
-    const { username, password } = authPayloadDto;
+    const { email, password } = authPayloadDto;
     const findUser = await this.prisma.user.findFirst({
       where: {
-        username,
+        email,
       },
     });
 
@@ -23,7 +23,7 @@ export class AuthService {
     if (await bcrypt.compare(password, findUser.password)) {
       const user = {
         id: findUser.id,
-        username: findUser.username,
+        email: findUser.email,
       };
       return this.jwtService.sign(user);
     }
