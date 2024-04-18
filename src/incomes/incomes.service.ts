@@ -9,13 +9,14 @@ export class IncomesService {
 
   async create(createIncomeDto: CreateIncomeDto, user: UserDto) {
     try {
-      const { title, amount, description } = createIncomeDto;
+      const { title, amount, description, date } = createIncomeDto;
 
       const income = await this.prisma.incomes.create({
         data: {
           title,
           amount,
           description,
+          date,
           user: {
             connect: {
               id: user.id,

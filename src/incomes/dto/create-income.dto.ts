@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsDate, IsNumber, IsString } from 'class-validator';
 
 export class CreateIncomeDto {
   @IsString()
@@ -9,4 +9,8 @@ export class CreateIncomeDto {
 
   @IsString()
   description: string;
+
+  @IsString()
+  @IsDate()
+  date: Date;
 }

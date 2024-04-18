@@ -30,6 +30,7 @@ model Expenses {
   title           String
   amount          Float
   description     String
+  date            DateTime
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
@@ -42,6 +43,7 @@ model Incomes {
   title           String
   amount          Float
   description     String
+  date            DateTime
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 

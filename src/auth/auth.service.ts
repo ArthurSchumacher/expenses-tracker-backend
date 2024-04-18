@@ -24,6 +24,7 @@ export class AuthService {
       const user = {
         id: findUser.id,
         email: findUser.email,
+        username: findUser.username,
       };
       return this.jwtService.sign(user);
     }

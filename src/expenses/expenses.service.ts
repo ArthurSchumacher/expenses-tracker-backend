@@ -9,14 +9,19 @@ export class ExpensesService {
 
   async create(createExpenseDto: CreateExpenseDto, user: UserDto) {
     try {
-      const { title, amount, description } = createExpenseDto;
+      const { title, amount, description, date } = createExpenseDto;
 
       return await this.prisma.expenses.create({
         data: {
           title,
           amount,
+          date,
           description,
-          userId: user.id,
+          user: {
+            connect: {
+              id: user.id,
+            },
+          },
         },
       });
     } catch (error) {
